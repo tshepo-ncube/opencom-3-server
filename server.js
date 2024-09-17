@@ -273,14 +273,15 @@ app.post("/generateEventDescription", async (req, res) => {
 THIS IS NOW FOR THE AI GENERATION
 */
 
-app.post("/generateEventDescription", async (req, res) => {
+app.post("/generateCommunityDescription", async (req, res) => {
   const { name } = req.body;
   console.log(name);
   const completion = await openai.chat.completions.create({
     messages: [
       {
         role: "user",
-        content: `Here is an event name - ${name}. The event is for a software company's staff. Please generate a description for this event. Concise Pargraph, with 250 characters?`,
+
+        content: `Here is an event name - ${name}. The event is  is for a software company's staff. Please generate a description for this community. Concise Pargraph, with 250 characters?`,
       },
     ],
     model: "gpt-4o-mini",
@@ -295,8 +296,8 @@ app.post("/generateEventDescription", async (req, res) => {
   }
 });
 
-app.post("/generateCommunityDescription", async (req, res) => {
-  console.log("community name ");
+app.post("/generateEventDescription", async (req, res) => {
+  console.log("event name ");
   const { name } = req.body;
   console.log(name);
 
@@ -304,7 +305,7 @@ app.post("/generateCommunityDescription", async (req, res) => {
     messages: [
       {
         role: "user",
-        content: `Here is an community name - ${name}. The commnity is for a software company's staff. Please generate a description for this community. Concise Pargraph, with 250 characters?`,
+        content: `Here is an community name - ${name}. The community is for a software company's staff. Please generate a description for this community. Concise Pargraph, with 250 characters?`,
       },
     ],
     model: "gpt-4o-mini",
@@ -346,6 +347,10 @@ app.post("/remindUsersOfNewPoll", async (req, res) => {
 app.post("/schedulePollEndReminder", async (req, res) => {
   const { eventID } = req.body;
   schedulePollEndReminder(eventID, res);
+});
+
+app.post("pingServer", async (req, res) => {
+  console.log("Server Pinged");
 });
 
 app.listen(port, () => {
